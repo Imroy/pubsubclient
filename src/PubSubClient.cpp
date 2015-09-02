@@ -227,6 +227,15 @@ bool PubSubClient::publish(String topic, String payload) {
   return publish(pub);
 }
 
+bool PubSubClient::publish(String topic, String payload, bool retained) {
+  if (!connected())
+    return false;
+
+  MQTT::Publish pub(topic, payload);
+  pub.set_retain(retained);
+  return publish(pub);
+}
+
 bool PubSubClient::publish(String topic, const uint8_t* payload, uint32_t plength, bool retained) {
   if (!connected())
     return false;
