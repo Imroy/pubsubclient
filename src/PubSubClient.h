@@ -81,6 +81,7 @@ public:
    /*!
      Use set_server() before connect()
    */
+   PubSubClient();
    PubSubClient(Client& c);
 
    //! Constructor with the server ip address

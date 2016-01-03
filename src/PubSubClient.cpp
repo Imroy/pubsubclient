@@ -7,6 +7,8 @@
 #include "PubSubClient.h"
 #include <string.h>
 
+PubSubClient::PubSubClient(){}
+
 PubSubClient::PubSubClient(Client& c) :
   _callback(NULL),
   _client(&c),
