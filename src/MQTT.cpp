@@ -310,7 +310,7 @@ namespace MQTT {
     uint32_t len = 2 + _clientid.length();
     if (_will_topic.length()) {
       len += 2 + _will_topic.length();
-      len += 2 + _will_message.length();
+      len += 2 + _will_length;
     }
     if (_username.length()) {
       len += 2 + _username.length();
@@ -325,7 +325,8 @@ namespace MQTT {
 
     if (_will_topic.length()) {
       write(buf, bufpos, _will_topic);
-      write(buf, bufpos, _will_message);
+      write(buf, bufpos, _will_length);
+      write(buf, bufpos, _will_message, _will_length);
     }
 
     if (_username.length()) {
