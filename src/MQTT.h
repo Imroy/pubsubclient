@@ -162,7 +162,8 @@ namespace MQTT {
 
     String _clientid;
     String _will_topic;
-    String _will_message;
+    uint8_t* _will_message;
+    uint16_t _will_length;
     String _username, _password;
 
     uint16_t _keepalive;
@@ -185,9 +186,15 @@ namespace MQTT {
 
     //! Set the "will" flag and associated attributes
     Connect& set_will(String willTopic, String willMessage, uint8_t willQos = 0, bool willRetain = false) {
-      _will_topic = willTopic; _will_message = willMessage; _will_qos = willQos; _will_retain = willRetain;
+      _will_topic = willTopic; _will_message = (uint8_t*)willMessage.c_str(); _will_length = willMessage.length(); _will_qos = willQos; _will_retain = willRetain;
       return *this;
     }
+    //! Set the "will" flag and associated attributes
+    Connect& set_will(String willTopic, uint8_t* willMessage, uint16_t willLength, uint8_t willQos = 0, bool willRetain = false) {
+        _will_topic = willTopic; _will_message = willMessage; _will_length = willLength; _will_qos = willQos; _will_retain = willRetain;
+        return *this;
+    }
+      
     //! Unset the "will" flag and associated attributes
     Connect& unset_will(void)			{ _will_topic = ""; return *this; }
 
