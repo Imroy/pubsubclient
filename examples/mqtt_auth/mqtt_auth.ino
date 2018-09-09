@@ -21,6 +21,7 @@ void callback(const MQTT::Publish& pub) {
 }
 
 WiFiClient wclient;
+//PubSubClient client(wclient, "m11.cloudmqtt.com", 1883); // URL type server
 PubSubClient client(wclient, server);
 
 void setup() {
