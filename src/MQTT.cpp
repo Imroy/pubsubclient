@@ -131,6 +131,9 @@ namespace MQTT {
     case SUBSCRIBE:
     case UNSUBSCRIBE:
       buf[bufpos] |= 0x02;
+	  break;
+    default:
+      break;
     }
     bufpos++;
 
@@ -343,6 +346,10 @@ namespace MQTT {
 	  return nullptr;
 
 	break;
+
+	default:
+		break;
+	
       }
     }
 
@@ -486,7 +493,8 @@ namespace MQTT {
   Publish::Publish(String topic, const __FlashStringHelper* payload) :
     Message(PUBLISH),
     _topic(topic),
-    _payload_len(strlen_P((PGM_P)payload)), _payload(new uint8_t[_payload_len + 1]),
+    _payload(new uint8_t[_payload_len + 1]),
+    _payload_len(strlen_P((PGM_P)payload)), 
     _payload_mine(true)
   {
     strncpy_P((char*)_payload, (PGM_P)payload, _payload_len);
@@ -519,8 +527,9 @@ namespace MQTT {
   Publish::Publish(String topic, payload_callback_t pcb, uint32_t length) :
     Message(PUBLISH),
     _topic(topic),
+    _payload(nullptr), 
     _payload_len(length),
-    _payload(nullptr), _payload_mine(false)
+    _payload_mine(false)
   {
     _payload_callback = pcb;
   }
@@ -599,6 +608,7 @@ namespace MQTT {
     case 2:
       return PUBREC;
     }
+    return None;
   }
 
 
