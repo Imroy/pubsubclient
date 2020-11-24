@@ -140,6 +140,9 @@ void PubSubClient::_process_message(MQTT::Message* msg) {
 
   case MQTT::PINGRESP:
     pingOutstanding = false;
+
+    default:
+    	break;
   }
 }
 

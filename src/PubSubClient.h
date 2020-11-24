@@ -25,21 +25,21 @@ public:
   typedef void(*callback_t)(const MQTT::Publish&);
 #endif
 
-private:
-   IPAddress server_ip;
-   String server_hostname;
-   uint16_t server_port;
+private:   
    callback_t _callback;
-
    Client &_client;
    MQTT::PacketParser _parser;
-   uint16_t nextMsgId, keepalive;
    uint8_t _max_retries;
+   bool isSubAckFound;
+   IPAddress server_ip;
+   uint16_t server_port;
+   String server_hostname;
+
+   uint16_t nextMsgId, keepalive;
    unsigned long lastOutActivity;
    unsigned long lastInActivity;
    bool pingOutstanding;
-   bool isSubAckFound;
-
+ 
    //! Receive a message from the client
    /*!
      \return Pointer to message object, nullptr if no message has been received
