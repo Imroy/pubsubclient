@@ -7,6 +7,8 @@
 #include "PubSubClient.h"
 #include <string.h>
 
+PubSubClient::PubSubClient(){}
+
 PubSubClient::PubSubClient(Client& c) :
   _callback(nullptr),
   _client(c),
@@ -269,6 +271,15 @@ bool PubSubClient::publish(String topic, String payload) {
     return false;
 
   MQTT::Publish pub(topic, payload);
+  return publish(pub);
+}
+
+bool PubSubClient::publish(String topic, String payload, bool retained) {
+  if (!connected())
+    return false;
+
+  MQTT::Publish pub(topic, payload);
+  pub.set_retain(retained);
   return publish(pub);
 }
 

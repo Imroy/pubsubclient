@@ -90,6 +90,7 @@ public:
    /*!
      Use set_server() before connect()
    */
+   PubSubClient();
    PubSubClient(Client& c);
 
    //! Constructor with the server ip address
@@ -139,6 +140,14 @@ public:
      \param payload String text of the message
     */
    bool publish(String topic, String payload);
+
+   //! Publish a string payload
+   /*!
+     \param topic Topic of the message
+     \param payload String text of the message
+     \param retained If true, this message will be stored on the server and
+    */
+   bool publish(String topic, String payload, bool retained);
 
    //! Publish an arbitrary data payload
    /*!
